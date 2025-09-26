@@ -2,14 +2,18 @@ Shader "Custom/QuenShieldLit"
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
+        [HDR] _FresnelColor("FresnelColor", Color) = (1, 1, 1, 1)
+        _FresnelPower("Fresnel Power", Range(1, 20)) = 1
     }
+    
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags {
+            "RenderType" = "Transparent"
+            "Queue" = "Transparent"
+        }
+        
+        Blend SrcAlpha OneMinusSrcAlpha
         LOD 200
 
         CGPROGRAM
@@ -18,26 +22,20 @@ Shader "Custom/QuenShieldLit"
         
         #pragma target 3.0
 
-        sampler2D _MainTex;
+        float _FresnelPower;
+        float4 _FresnelColor;
 
         struct Input
         {
             float2 uv_MainTex;
+            float3 viewDir;
+            float3 worldNormal;
         };
-
-        half _Glossiness;
-        half _Metallic;
-        fixed4 _Color;
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Albedo = c.rgb;
-            
-            o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
-            o.Alpha = c.a;
+            o.Albedo = _FresnelColor;
+            //o.Emission = _FresnelColor * pow(1 - saturate(dot(normalize(IN.worldNormal), normalize(IN.viewDir))), _FresnelPower);
         }
         ENDCG
     }

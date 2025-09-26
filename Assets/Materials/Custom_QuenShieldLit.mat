@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit_QuenShield
-  m_Shader: {fileID: 4800000, guid: 81e11cbeb5d98694bb82fc93865c961e, type: 3}
+  m_Name: Custom_QuenShieldLit
+  m_Shader: {fileID: 4800000, guid: 27af3a8caf4350e4cba3375555ececc4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -22,18 +22,11 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Amp: 0.0361
-    - _Freq: 0.775
-    - _FresnelPower: 5.81
-    - _Speed: 45.7
+    - _FresnelPower: 1
     m_Colors:
-    - _FresnelColor: {r: 4, g: 1.6874998, b: 0, a: 1}
+    - _FresnelColor: {r: 1.5471698, g: 0.38679245, b: 0.38679245, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

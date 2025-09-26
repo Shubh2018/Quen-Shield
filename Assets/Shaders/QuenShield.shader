@@ -27,11 +27,11 @@ Shader "Unlit/QuenShield"
 
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
 
-            #include "UnityCG.cginc"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             float _FresnelPower;
             float4 _FresnelColor;
@@ -59,16 +59,16 @@ Shader "Unlit/QuenShield"
                 v2f o;
 
                 //Fresnel
-                o.normal = UnityObjectToWorldNormal(v.normal);
+                o.normal = TransformObjectToWorldNormal(v.normal);
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex);
-                o.viewDir = normalize(UnityWorldSpaceViewDir(o.worldPos));
+                o.viewDir = normalize(GetWorldSpaceViewDir(o.worldPos));
 
                 //VertexDisplacement
                 float t = _Speed * _Time;
                 float height = _Amp * sin(v.vertex.y * t + _Freq );
                 v.vertex += normalize(float4(o.normal, 1)) * height;
 
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.vertex = TransformObjectToHClip(v.vertex);
                 
                 return o;
             }
@@ -79,7 +79,7 @@ Shader "Unlit/QuenShield"
                 half4 color = _FresnelColor * pow(1 - dot(i.viewDir, i.normal), _FresnelPower * saturate((sin(_Time.y) + 1.5) * 0.5));
                 return color;
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }
