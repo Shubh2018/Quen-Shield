@@ -30,7 +30,9 @@ Shader "Unlit/QuenShield"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma hull tess
 
+            #include "HLSLSupport.cginc"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             float _FresnelPower;
@@ -53,6 +55,11 @@ Shader "Unlit/QuenShield"
                 float3 viewDir : TEXCOORD2;
                 float4 worldPos : TEXCOORD3;
             };
+
+            float4 tess(appdata v0, appdata v1, appdata v2)
+            {
+                
+            }
             
             v2f vert (appdata v)
             {
