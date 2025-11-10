@@ -30,7 +30,6 @@ Shader "Unlit/QuenShield"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma hull tess
 
             #include "HLSLSupport.cginc"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
