@@ -29,8 +29,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _MaxDist: 1
-    - _Tess: 15.2
-    m_Colors: []
+    - _Amplitude: 0.02
+    - _FadeLength: 1
+    - _Frequency: 8.44
+    - _FresnelPower: 4.22
+    - _MaxDist: 50
+    - _Speed: 10.6
+    - _Tess: 5.37
+    m_Colors:
+    - _FresnelColor: {r: 1.4980389, g: 0.5494272, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

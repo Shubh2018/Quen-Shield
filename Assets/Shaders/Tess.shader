@@ -4,12 +4,30 @@ Shader "Unlit/Tess"
     {
         _Tess ("Tesselation", Range(1, 20)) = 2
         _MaxDist("Max Distance", Float) = 50
+        
+        [HDR]_FresnelColor ("Color", Color) = (1,1,1,1)
+        _FresnelPower("Fresnel Power", Range(1, 20)) = 1
+        
+        _Speed("Speed", Range(0, 100)) = 1
+        _Frequency("Frequency", Range(0, 20)) = 2
+        _Amplitude("Amplitude", Range(0, 5)) = 0.05
+        
+        _FadeLength("Fade Length", Range(0, 2)) = 1
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags {
+            "RenderType"="Transparent"
+            "Queue"="Transparent"
+        }
         LOD 100
-
+        
+        Blend SrcAlpha OneMinusSrcAlpha
+        
+        ZWrite Off
+        
+        Cull Back
+        
         Pass
         {
             CGPROGRAM
@@ -24,7 +42,6 @@ Shader "Unlit/Tess"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                float4 color : COLOR;
                 float3 normal : NORMAL;
             };
 
@@ -33,7 +50,6 @@ Shader "Unlit/Tess"
             {
                 float4 vertex : INTERNALTESSPOS;
                 float2 uv : TEXCOORD0;
-                float4 color : COLOR;
                 float3 normal : NORMAL;
             };
 
@@ -42,6 +58,9 @@ Shader "Unlit/Tess"
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
                 float3 normal : NORMAL;
+                float3 viewDir : TEXCOORD2;
+                float4 worldPos : TEXCOORD3;
+                float3 worldNormal : TEXCOORD4;
             };
 
             //Tesselation Data
@@ -56,13 +75,35 @@ Shader "Unlit/Tess"
 
             float _Tess;
             float _MaxDist;
+            
+            float _Speed;
+            float _Frequency;
+            float _Amplitude;
+
+            float4 _FresnelColor;
+            float _FresnelPower;
+
+            float _FadeLength;
+
+            sampler2D _CameraDepthTexture;
 
             v2f vert (appdata v)
             {
                 v2f o;
+
+                float t = _Speed * _Time.y;
+                float height = _Amplitude * sin(v.vertex.y * t + _Frequency);
+
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex);
+                o.viewDir = normalize(UnityWorldSpaceViewDir(o.worldPos));
+                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+                
+                o.normal = v.normal;
+
+                v.vertex.xyz += normalize(o.normal) * height;
+                
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
-                o.normal = v.normal;
                 return o;
             }
 
@@ -74,7 +115,6 @@ Shader "Unlit/Tess"
                 p.vertex = v.vertex;
                 p.uv = v.uv;
                 p.normal = v.normal;
-                p.color = v.color;
 
                 return p;
             }
@@ -134,7 +174,6 @@ Shader "Unlit/Tess"
 
                 DomainCalc(vertex);
                 DomainCalc(uv);
-                DomainCalc(color);
                 DomainCalc(normal);
 
                 return vert(v);
@@ -142,8 +181,15 @@ Shader "Unlit/Tess"
 
             half4 frag (v2f i) : SV_Target
             {
-                half4 col = tex2D(_MainTex, i.uv);
-                return col;
+                float sceneZ = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.vertex)));
+                float surfZ = -mul(UNITY_MATRIX_V, float4(i.vertex.xyz, 1)).z;
+                float diff = sceneZ - surfZ;
+                float intersect = 1 - saturate(diff / _FadeLength);
+
+                half4 fresnel = _FresnelColor * pow(1 - dot(i.viewDir, i.worldNormal), _FresnelPower * saturate((sin(_Time.y) + 1.5) * 0.5));
+                half4 intersection = _FresnelColor;
+                
+                return lerp(fresnel, intersection, pow(intersect, 4));
             }
             ENDCG
         }

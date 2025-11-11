@@ -31,7 +31,7 @@ Material:
     m_Floats:
     - _Amp: 0.0361
     - _Freq: 0.775
-    - _FresnelPower: 5.81
+    - _FresnelPower: 3.66
     - _Speed: 100
     m_Colors:
     - _FresnelColor: {r: 4, g: 1.6874998, b: 0, a: 1}

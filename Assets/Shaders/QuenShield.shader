@@ -54,11 +54,6 @@ Shader "Unlit/QuenShield"
                 float3 viewDir : TEXCOORD2;
                 float4 worldPos : TEXCOORD3;
             };
-
-            float4 tess(appdata v0, appdata v1, appdata v2)
-            {
-                
-            }
             
             v2f vert (appdata v)
             {
