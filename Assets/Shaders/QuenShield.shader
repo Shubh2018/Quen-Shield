@@ -31,6 +31,7 @@ Shader "Unlit/QuenShield"
             #pragma vertex vert
             #pragma fragment frag
 
+            #include "HLSLSupport.cginc"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             float _FresnelPower;

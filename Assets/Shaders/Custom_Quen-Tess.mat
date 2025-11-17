@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit_QuenShield
-  m_Shader: {fileID: 4800000, guid: 81e11cbeb5d98694bb82fc93865c961e, type: 3}
+  m_Name: Custom_Quen-Tess
+  m_Shader: {fileID: 4800000, guid: 511a258eb8704e7448feca13d1e94e74, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -22,18 +22,17 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Amp: 0.0361
-    - _Freq: 0.775
-    - _FresnelPower: 3.66
-    - _Speed: 100
+    - _Amplitude: 0.05
+    - _EdgeLength: 20
+    - _FadeLength: 1
+    - _Frequency: 2
+    - _FresnelPower: 1
+    - _Phong: 0.5
+    - _Speed: 1
     m_Colors:
-    - _FresnelColor: {r: 4, g: 1.6874998, b: 0, a: 1}
+    - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
