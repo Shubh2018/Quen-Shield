@@ -3,7 +3,7 @@ Shader "Unlit/DepthIntersection"
     Properties
     {
         _Color ("Color", Color) = (1, 1, 1, 1)
-        _FadeLength("FadeLength", Float) = 1
+        _FadeLength("FadeLength", Range(0, 10)) = 1
     }
     SubShader
     {
@@ -13,9 +13,9 @@ Shader "Unlit/DepthIntersection"
         }
         
         LOD 100
-        Blend One One
+        Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
-        Cull False
+        Cull Back
 
         Pass
         {
@@ -55,15 +55,15 @@ Shader "Unlit/DepthIntersection"
                 float2 screenSpaceUVS = i.screenPosition.xy / i.screenPosition.w;
 
                 float depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, screenSpaceUVS));
-                float fragZ = length(i.screenPosition - _WorldSpaceCameraPos);
+                float fragZ = i.screenPosition.a;
 
                 float diff = depth - fragZ;
                 float intersect = 0;
                 
                 if (diff > 0)
-                    intersect = saturate(_FadeLength * diff);
+                    intersect = saturate(diff / _FadeLength);
                 
-                return lerp(half4(1, 0, 1, 1), half4(1, 1, 1, 1), pow(intersect, 4));
+                return lerp(half4(0, 0, 0, 1), _Color, pow(intersect, 4));
             }
             ENDCG
         }
