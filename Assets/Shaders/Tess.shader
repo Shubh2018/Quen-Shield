@@ -22,7 +22,7 @@ Shader "Unlit/Tess"
         }
         LOD 100
         
-        Blend SrcAlpha OneMinusSrcAlpha
+        Blend One One
         
         ZWrite Off
         
@@ -30,13 +30,14 @@ Shader "Unlit/Tess"
         
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex TesselationVertexProgram
             #pragma fragment frag
             #pragma hull hull
             #pragma domain domain 
 
-            #include "UnityCG.cginc"
+            #include "HLSLSupport.cginc"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             struct appdata
             {
@@ -85,7 +86,8 @@ Shader "Unlit/Tess"
 
             float _FadeLength;
 
-            sampler2D _CameraDepthTexture;
+            TEXTURE2D(_CameraDepthTexture);
+            SAMPLER(sampler_CameraDepthTexture);
 
             v2f vert (appdata v)
             {
@@ -95,14 +97,14 @@ Shader "Unlit/Tess"
                 float height = _Amplitude * sin(v.vertex.y * t + _Frequency);
 
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex);
-                o.viewDir = normalize(UnityWorldSpaceViewDir(o.worldPos));
-                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+                o.viewDir = normalize(GetWorldSpaceViewDir(o.worldPos));
+                o.worldNormal = TransformObjectToWorldNormal(v.normal);
                 
                 o.normal = v.normal;
 
                 v.vertex.xyz += normalize(o.normal) * height;
                 
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.vertex = TransformObjectToHClip(v.vertex);
                 o.uv = v.uv;
                 return o;
             }
@@ -181,17 +183,21 @@ Shader "Unlit/Tess"
 
             half4 frag (v2f i) : SV_Target
             {
-                float sceneZ = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.vertex)));
-                float surfZ = -mul(UNITY_MATRIX_V, float4(i.vertex.xyz, 1)).z;
-                float diff = sceneZ - surfZ;
-                float intersect = 1 - saturate(diff / _FadeLength);
+                float screenUV = i.vertex.xy / i.vertex.w;
+                float depthValue = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, sampler_CameraDepthTexture, screenUV).r;
 
+                float sceneZ = Linear01Depth(depthValue, _ZBufferParams);
+                float surfZ = length(mul(unity_ObjectToWorld, float4(i.vertex.xyz, 1.0)).xyz - _WorldSpaceCameraPos);
+
+                float diff = abs(sceneZ - surfZ);
+                float intersect = 1 - saturate(diff / _FadeLength);
+                
                 half4 fresnel = _FresnelColor * pow(1 - dot(i.viewDir, i.worldNormal), _FresnelPower * saturate((sin(_Time.y) + 1.5) * 0.5));
                 half4 intersection = _FresnelColor;
                 
-                return lerp(fresnel, intersection, pow(intersect, 4));
+                return lerp(fresnel, intersection, pow(intersect, 2));
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }

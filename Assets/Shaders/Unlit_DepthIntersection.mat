@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit_Tess
-  m_Shader: {fileID: 4800000, guid: c20f244356d27be40a79841e47b4febf, type: 3}
+  m_Name: Unlit_DepthIntersection
+  m_Shader: {fileID: 4800000, guid: 748c5254d019b494b9983f0c61877668, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,14 +29,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 0.01
-    - _FadeLength: 0.651
-    - _Frequency: 5.96
-    - _FresnelPower: 4.3
-    - _MaxDist: 50
-    - _Speed: 28.7
-    - _Tess: 3.72
+    - _FadeLength: 0.74
     m_Colors:
-    - _FresnelColor: {r: 1.4980389, g: 0.5494272, b: 0, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
