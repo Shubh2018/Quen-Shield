@@ -55,7 +55,7 @@ Shader "Unlit/DepthIntersection"
                 float2 screenSpaceUVS = i.screenPosition.xy / i.screenPosition.w;
 
                 float depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, screenSpaceUVS));
-                float fragZ = i.screenPosition.a;
+                float fragZ = i.screenPosition.w;
 
                 float diff = depth - fragZ;
                 float intersect = 0;

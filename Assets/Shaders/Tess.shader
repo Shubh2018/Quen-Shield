@@ -20,12 +20,10 @@ Shader "Unlit/Tess"
             "RenderType"="Transparent"
             "Queue"="Transparent"
         }
+        
         LOD 100
-        
         Blend One One
-        
         ZWrite Off
-        
         Cull Back
         
         Pass
@@ -62,6 +60,7 @@ Shader "Unlit/Tess"
                 float3 viewDir : TEXCOORD2;
                 float4 worldPos : TEXCOORD3;
                 float3 worldNormal : TEXCOORD4;
+                float4 screenPos : TEXCOORD5;
             };
 
             //Tesselation Data
@@ -106,6 +105,7 @@ Shader "Unlit/Tess"
                 
                 o.vertex = TransformObjectToHClip(v.vertex);
                 o.uv = v.uv;
+                o.screenPos = ComputeScreenPos(o.vertex);
                 return o;
             }
 
@@ -183,19 +183,28 @@ Shader "Unlit/Tess"
 
             half4 frag (v2f i) : SV_Target
             {
-                float screenUV = i.vertex.xy / i.vertex.w;
-                float depthValue = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, sampler_CameraDepthTexture, screenUV).r;
+                float2 screenSpaceUVS = i.screenPos.xy / i.screenPos.w;
 
-                float sceneZ = Linear01Depth(depthValue, _ZBufferParams);
-                float surfZ = length(mul(unity_ObjectToWorld, float4(i.vertex.xyz, 1.0)).xyz - _WorldSpaceCameraPos);
+                float depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture,
+                    sampler_CameraDepthTexture,
+                    screenSpaceUVS),
+                    _ZBufferParams);
 
-                float diff = abs(sceneZ - surfZ);
-                float intersect = 1 - saturate(diff / _FadeLength);
+                float fragZ = i.screenPos.w;
+
+                float diff = depth - fragZ;
+                float intersect = 0;
+
+                if (diff > 0)
+                    intersect = 1 - saturate(diff / _FadeLength);
                 
-                half4 fresnel = _FresnelColor * pow(1 - dot(i.viewDir, i.worldNormal), _FresnelPower * saturate((sin(_Time.y) + 1.5) * 0.5));
+                half4 fresnel = _FresnelColor *
+                    pow(1 - dot(i.viewDir, i.worldNormal),
+                        _FresnelPower * saturate((sin(_Time.y) + 1.5) * 0.5));
+
                 half4 intersection = _FresnelColor;
                 
-                return lerp(fresnel, intersection, pow(intersect, 2));
+                return lerp(fresnel, intersection, pow(intersect, 4));
             }
             ENDHLSL
         }
