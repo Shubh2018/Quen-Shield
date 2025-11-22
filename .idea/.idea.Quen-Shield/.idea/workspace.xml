@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="287c78df-5da2-4a3b-b0ba-c8f3e96ece45" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Quen-Shield/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Quen-Shield/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Quen.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Quen.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/DepthIntersection.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/DepthIntersection.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Tess.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Tess.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Unlit_DepthIntersection.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Unlit_DepthIntersection.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Shaders/Unlit_Tess.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Unlit_Tess.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +32,10 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Temp/Compiled-Shader Graphs-QuenShield.shader" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Temp/GeneratedFromGraph-QuenShield.shader" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/CameraPP.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Shaders/Outline.shader" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@5251a026f8b9/ShaderLibrary/Core.hlsl" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@5251a026f8b9/ShaderLibrary/ShaderVariablesFunctions.hlsl" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -125,7 +127,9 @@
       <workItem from="1758465180350" duration="1106000" />
       <workItem from="1758877321853" duration="1472000" />
       <workItem from="1763394883091" duration="5919000" />
-      <workItem from="1763401186256" duration="4007000" />
+      <workItem from="1763401186256" duration="4221000" />
+      <workItem from="1763669463156" duration="2995000" />
+      <workItem from="1763757408013" duration="1949000" />
     </task>
     <servers />
   </component>
