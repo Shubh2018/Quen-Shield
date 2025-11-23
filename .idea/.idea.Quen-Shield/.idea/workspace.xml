@@ -7,9 +7,12 @@
     <list default="true" id="287c78df-5da2-4a3b-b0ba-c8f3e96ece45" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Quen-Shield/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Quen-Shield/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Quen.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Quen.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultipassRenderer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultipassRenderer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultipassRendererFeature.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultipassRendererFeature.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Unlit_Tess.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Unlit_Tess.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Unlit_RampLighting 1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Unlit_RampLighting 1.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +35,9 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0004165128be453398769144f78ad2921eae00/97/9b7d0680/FilteringSettings.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/CameraPP.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MultipassRendererFeature.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Shaders/Outline.shader" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@5251a026f8b9/ShaderLibrary/Core.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@5251a026f8b9/ShaderLibrary/ShaderVariablesFunctions.hlsl" root0="SKIP_HIGHLIGHTING" />
@@ -130,6 +135,9 @@
       <workItem from="1763401186256" duration="4221000" />
       <workItem from="1763669463156" duration="2995000" />
       <workItem from="1763757408013" duration="1949000" />
+      <workItem from="1763840753732" duration="233000" />
+      <workItem from="1763841018844" duration="3781000" />
+      <workItem from="1763887385686" duration="6570000" />
     </task>
     <servers />
   </component>
